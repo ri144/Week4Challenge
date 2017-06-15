@@ -13,13 +13,13 @@
 <input type="text" style= "width:250px;" name="school" id = "school" value="enter school here"/><br>
 <input type="text" style= "width:250px;" name="major" id = "major" value="enter major here"/><br>
 <input type="text" style= "width:250px;" name="year" id = "year" value="enter year here (must be int)"/><br>
-<input type = "hidden" name = "act" value="edu">
+<input type = "hidden" name = "act" value="edu2">
 <input type = "submit" value = "enter">
-</form><!--  
+</form>
 <form action="Main" method = "post">
 Click the following button to continue without submitting another data entry for education
 <input type = "hidden" name = "act" value="educont">
-<input type = "submit2" value = "enter" style="visibility: hidden">
-</form>-->
+<input type = "submit" value = "enter" >
+</form>
 </body>
 </html>
