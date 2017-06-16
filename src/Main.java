@@ -1,6 +1,8 @@
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -83,7 +85,8 @@ public class Main extends HttpServlet {
 		}
 		else if(check.equals("skillcont")){// || (int) ses.getAttribute("c") == 10){
 			setResults(request);
-			next = "/results.jsp";
+			
+			next = "/cleanerResults.jsp";
 		}
 		getServletContext().getRequestDispatcher(next).forward(request, response);
 	}
@@ -104,15 +107,23 @@ public class Main extends HttpServlet {
 			//request.setAttribute("msg4", "Please fill out the following input field for skills and submit with the button when ready.");
 			ses.setAttribute("c", -1);
 			setResults(request);
-			return "/results.jsp";
+			return "/cleanerResults.jsp";
 		}
 	}
 private void setResults(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		HttpSession ses = ((HttpServletRequest) request).getSession();
-		Person p = (Person) ses.getAttribute("p");	
+		Person p = (Person) ses.getAttribute("p");
+		ArrayList<ArrayList<String>> x = p.getEdu2();
 		request.setAttribute("name", p.getName());
 		request.setAttribute("email",p.getEmail());
+		for(int i = 0; i<x.size();i++){
+			request.setAttribute(("deg" + String.valueOf(i)),x.get(i).get(0));
+			request.setAttribute(("maj" + String.valueOf(i)),x.get(i).get(1));
+			request.setAttribute(("uni" + String.valueOf(i)),x.get(i).get(2));
+			request.setAttribute(("year" + String.valueOf(i)),x.get(i).get(3));
+		}
+		request.setAttribute("edspace",x.size());
 		request.setAttribute("edu", p.getEdu().replace("\n", "<br>"));
 		request.setAttribute("exp", p.getExp().replace("\n", "<br>"));
 		request.setAttribute("skill", p.getSkills().replace("\n", "<br>"));
@@ -132,10 +143,12 @@ private void setResults(HttpServletRequest request) {
 		String duty2 = request.getParameter("duty2");
 		if(!isInteger(startyear) || !isInteger(endyear)){
 			request.setAttribute("msg3", "There was an error with one of your inputs. (Year not an int)<br>Please fill out the following input fields and submit with the button when ready.");
+			ses.setAttribute("c", (int) ses.getAttribute("c") - 1);
 			return "/work.jsp";
 		}
 		else if(startmonth.length() > 15 || endmonth.length() > 15){
 			request.setAttribute("msg3", "There was an error with one of your inputs. (Month size too large)<br>Please fill out the following input fields and submit with the button when ready.");
+			ses.setAttribute("c", (int) ses.getAttribute("c") - 1);
 			return "/work.jsp";
 		}
 		p.setWork(position, company, startmonth, startyear, endmonth, endyear, duty1, duty2);
@@ -176,6 +189,7 @@ private void setResults(HttpServletRequest request) {
 		String year = request.getParameter("year");
 		if(!isInteger(year)){
 			request.setAttribute("msg2", "There was an error with one of your inputs. (Year not an int)<br>Please fill out the following input fields and submit with the button when ready.");
+			ses.setAttribute("c", (int) ses.getAttribute("c") - 1);
 			if(flag){
 				return "/edu2.jsp";
 			}
@@ -185,6 +199,7 @@ private void setResults(HttpServletRequest request) {
 		}
 		else if(degree.length() > 10){
 			request.setAttribute("msg2", "There was an error with one of your inputs. (Degree input too long)<br>Please fill out the following input fields and submit with the button when ready.");
+			ses.setAttribute("c", (int) ses.getAttribute("c") - 1);
 			if(flag){
 				return "/edu2.jsp";
 			}

@@ -2,13 +2,17 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
+<<!-- link rel="stylesheet"  type="text/css">-->
+<link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Results</title>
 </head>
 <body>
+<!--  --<a href = "/css/init.html">Some thest</a>-->
 =============================================================<br>
-<p>${name}</p>
+<p class= "skillset">${name}</p>
 <p>${email}</p>
 <b>Education</b><br>
 <p>${edu}</p>
